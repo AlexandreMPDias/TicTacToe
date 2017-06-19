@@ -1,5 +1,5 @@
 # TicTacToe
-Ticktacktoe Game created for Gazeus as part of their evaluation
+TicTacToe Game created for Gazeus as part of their evaluation.
 
 Game rules.
 
