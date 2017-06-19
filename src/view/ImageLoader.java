@@ -43,7 +43,9 @@ class ImageLoader {
   }
 
   public enum ImageID {
-    BG1("BGG1.jpg"), BG2("BGG2.jpg"), O("O.png"), X("X.png"), Icon("Icon.jpg"),
+    BG1("BG1.jpg"), BG2("BG2.jpg"), BG3("BG3.jpg"), BG4("BG4.jpg"), BG5("BG5.jpg"), BG6(
+        "BG6.jpg"), BG7("BG7.jpg"), BG8("BG8.jpg"), BG9("BG9.jpg"), O("O.png"), X("X.png"), Icon(
+        "Icon.jpg"),
     AlertIcon("alert.gif"), Ask("interrogation.jpg");
 
     private String imageName;

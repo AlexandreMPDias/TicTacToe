@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Map.Entry;
+import java.util.Random;
 import javax.swing.JComponent;
 import model.IBoard;
 import model.Mark;
@@ -24,13 +25,16 @@ class ShowBoard extends JComponent {
   private int panelSize;
 
   private BufferedImage bgImg;
+  private ImageID bgID;
 
   ShowBoard() {
     super();
     setFocusable(true);
     board = null;
     margin = 10;
-    bgImg = ImageLoader.getBufImg(ImageID.BG1);
+    Random random = new Random();
+    bgID = ImageID.values()[Math.abs(random.nextInt(9))];
+    bgImg = ImageLoader.getBufImg(bgID);
     panelSize = 500;
     this.setPreferredSize(new Dimension(panelSize, panelSize));
     this.setSize(new Dimension(panelSize, panelSize));
@@ -67,12 +71,44 @@ class ShowBoard extends JComponent {
   }
 
   void updateBackground() {
-    if (bgImg == ImageLoader.getBufImg(ImageID.BG1)) {
-      bgImg = ImageLoader.getBufImg(ImageID.BG2);
-    } else {
-      bgImg = ImageLoader.getBufImg(ImageID.BG1);
+    switch (bgID) {
+      case BG1: {
+        bgID = ImageID.BG2;
+        break;
+      }
+      case BG2: {
+        bgID = ImageID.BG3;
+        break;
+      }
+      case BG3: {
+        bgID = ImageID.BG4;
+        break;
+      }
+      case BG4: {
+        bgID = ImageID.BG5;
+        break;
+      }
+      case BG5: {
+        bgID = ImageID.BG6;
+        break;
+      }
+      case BG6: {
+        bgID = ImageID.BG7;
+        break;
+      }
+      case BG7: {
+        bgID = ImageID.BG8;
+        break;
+      }
+      case BG8: {
+        bgID = ImageID.BG9;
+        break;
+      }
+      default: {
+        bgID = ImageID.BG1;
+      }
     }
-
+    bgImg = ImageLoader.getBufImg(bgID);
   }
 
   void reSize(int size) {
