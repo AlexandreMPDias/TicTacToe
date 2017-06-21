@@ -2,3 +2,7 @@ How to Run.
 
 To Run this program. Make sure the data folder is reachable for all the packages.
 After that, go to: src >> execution >> Main.java and run the main method from there.
+
+The Source Codes are on the [src] folder
+The Test Cases are on the [test] folder
+The Images and Sounds are on the [data] folder
