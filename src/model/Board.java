@@ -84,6 +84,17 @@ public class Board implements IBoard {
   }
 
   @Override
+  public Map<Point, Mark> getBoard() {
+    Map<Point, Mark> map = new HashMap<>();
+    for (int i = 0; i < board.length; i++) {
+      for (int j = 0; j < board.length; j++) {
+        map.put(new Point(i, j), board[i][j]);
+      }
+    }
+    return map;
+  }
+
+  @Override
   public Mark markAt(Point position) {
     if (pointOutsideOfBoard(position)) {
       throw new IllegalArgumentException(
@@ -213,7 +224,7 @@ public class Board implements IBoard {
    * @return true if someone did, false if not
    */
   private boolean checkColumn(int n) {
-    return (board[n][0] == board[n][1] && board[n][1] == board[n][2] && board[n][0] != null);
+    return (board[0][n] == board[1][n] && board[1][n] == board[2][n] && board[0][n] != null);
   }
 
   /**
@@ -223,7 +234,7 @@ public class Board implements IBoard {
    * @return true if someone did, false if not
    */
   private boolean checkLine(int n) {
-    return (board[0][n] == board[1][n] && board[1][n] == board[2][n] && board[0][n] != null);
+    return (board[n][0] == board[n][1] && board[n][1] == board[n][2] && board[n][0] != null);
   }
 
   /**

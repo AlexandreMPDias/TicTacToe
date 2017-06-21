@@ -14,9 +14,7 @@ import view.WelcomeFrame;
  * @author Alexandre Dias.
  * @version 1.0
  * @year 2017
- * @todo generate an AI that isn't random.
  * @todo adjust frame size to actual 400/500/600/700/etc... and not numbers around those.
- * @todo add more backgrounds for the board.
  *
  * Game created for the Gazeus as part of their evaluation.
  */

@@ -44,6 +44,14 @@ public interface IBoard {
   Map<Point, Mark> marksOnTheBoard();
 
   /**
+   * Get method for all the Board.
+   *
+   * @return a map of all the Board, where the Keys are Positions, and Values are Marks, or null, if
+   * there are no parks there.
+   */
+  Map<Point, Mark> getBoard();
+
+  /**
    * Checks which Mark is at a position in the Board.
    *
    * @param position on the board to be checked.

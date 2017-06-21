@@ -162,6 +162,7 @@ public final class Control implements IControl, ActionListener {
     /*
      * While user doesn't wish to exit.
      */
+    //ai.toggleLog();
     while (!wishToExit) {
       /*
        * While game isn't over.
@@ -174,18 +175,19 @@ public final class Control implements IControl, ActionListener {
          * If it is AI's turn.
          */
         if (!userTurn) {
-          ai.updateBoard(board);
           view.refresh();
           try {
             /*
              * Add AI's Mark to the board.
              */
+            ai.updateBoard(board);
             board.addMark(ai.getAIMark(), ai.makeMove());
             Thread.sleep(delayBetweenTurns);
             sound.play(getSoundLabel(userMark.other()));
           } catch (IllegalArgumentException iae) {
             //userTurn = false here as a failSafe method.
             userTurn = false;
+            System.out.println("FailSafe was activated [" + iae.getMessage() + "]");
           } catch (InterruptedException e1) {
             e1.printStackTrace();
           }
