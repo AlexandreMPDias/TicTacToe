@@ -6,3 +6,26 @@ After that, go to: src >> execution >> Main.java and run the main method from th
 The Source Codes are on the [src] folder
 The Test Cases are on the [test] folder
 The Images and Sounds are on the [data] folder
+
+-----------------
+
+How to play:
+
+Playing the game is really intuitive.
+When running the game, it will open a screen, that will only close when you hit any key on your keyboard.
+
+After it closes, another screen will open. And a pop up with 2 buttons will tell you choose... X or O? So you can choose you the Mark that you want to use in-game. But beware; you can only select it once per runtime.
+After clicking on either of those buttons, the popup will close, and the game will automatically start.
+
+-----------------
+
+Controllers:
+  You can set your Mark using either your Mouse, or using the { Q, W , E , A , S, D, Z, X, C } keys.
+  You can resize your screen to 8 different sizes, using either the { Left/Right Arrow } keys in your keyboard, or pressing the -/+ button on your screen.
+  You can mute/unmute your game by pressing the { M } key on your keyboard, or by pressing the Mute button on your screen.
+  You can also cycle through 10 different background images by clicking the [chgBG] button on the screen.
+  
+-----------------
+
+Hopes you enjoy the game!
+If maybe not in an entertainment way, maybe in an educative way!
