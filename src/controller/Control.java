@@ -178,7 +178,7 @@ public final class Control implements IControl, ActionListener {
           view.refresh();
           try {
             /*
-             * Add AI's Mark to the board.
+             * Add AI's Mark to the area.
              */
             ai.updateBoard(board);
             board.addMark(ai.getAIMark(), ai.makeMove());
@@ -339,14 +339,14 @@ public final class Control implements IControl, ActionListener {
   /**
    * Method used to make the user's Move on a Point
    *
-   * @param x is an x-coordinate inside the board.
-   * @param y is an y-coordinate inside the board.
+   * @param x is an x-coordinate inside the area.
+   * @param y is an y-coordinate inside the area.
    */
   private synchronized void makeMove_USER(int x, int y) {
     if (userTurn) {
       try {
         /*
-         * Add user Mark to the board.
+         * Add user Mark to the area.
          */
         board.addMark(userMark, x, y);
 
@@ -470,7 +470,7 @@ public final class Control implements IControl, ActionListener {
   } /* End of actionPerformed */
 
   /**
-   * Method used to get the correct Sound made by a mark for when it is placed on the board.
+   * Method used to get the correct Sound made by a mark for when it is placed on the area.
    */
   private SoundLabels getSoundLabel(Mark m) {
     if (m == Mark.X) {

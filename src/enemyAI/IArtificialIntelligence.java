@@ -6,14 +6,14 @@ import model.Mark;
 
 /**
  * Interface for ArtificialIntelligence on the TicTacToe game.
- * The IA need an updated board, and its mark to generate a point to add a Mark.
+ * The IA need an updated area, and its mark to generate a point to add a Mark.
  */
 public interface IArtificialIntelligence {
 
   /**
-   * Updates the board for the AI.
+   * Updates the area for the AI.
    *
-   * @param board the updates board.
+   * @param board the updates area.
    */
   void updateBoard(IBoard board);
 
@@ -62,4 +62,6 @@ public interface IArtificialIntelligence {
   void toggleLog(Appendable appendable);
 
   void toggleLog();
+
+  IBoard getBoard();
 }

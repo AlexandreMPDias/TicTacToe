@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Point;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +24,7 @@ public interface IBoard {
    * @param position the position to be added.
    * @throws IllegalArgumentException if game was not started.
    * @throws IllegalArgumentException if game is already over.
-   * @throws IllegalArgumentException if position is outside the board.
+   * @throws IllegalArgumentException if position is outside the area.
    * @throws IllegalArgumentException if there is already a mark on this position.
    */
   void addMark(Mark mark, Point position);
@@ -31,7 +32,7 @@ public interface IBoard {
   void addMark(Mark mark, int x, int y);
 
   /**
-   * Resets the board, removing all marks from it, and setting the gameOver state to false.
+   * Resets the area, removing all marks from it, and setting the gameOver state to false.
    */
   void resetBoard();
 
@@ -54,7 +55,7 @@ public interface IBoard {
   /**
    * Checks which Mark is at a position in the Board.
    *
-   * @param position on the board to be checked.
+   * @param position on the area to be checked.
    * @return the Mark at the given position, or null if there is no Mark there.
    */
   Mark markAt(Point position);
@@ -64,7 +65,7 @@ public interface IBoard {
   /**
    * Check if some position is empty or not.
    *
-   * @param position on the board to be checked.
+   * @param position on the area to be checked.
    * @return true if there is a Mark there, false if not.
    */
   boolean isEmptyAt(Point position);
@@ -100,4 +101,25 @@ public interface IBoard {
    * @return the Board state in a String form, ready to be printed in the Console.
    */
   String boardState();
+
+
+  boolean isColumnFull(int column);
+  boolean isLineFull(int line);
+  boolean isDiagonalFull(boolean ascend);
+
+  boolean isColumnEmpty(int column);
+  boolean isLineEmpty(int line);
+  boolean isDiagonalEmpty(boolean ascend);
+
+  int numberOfMarksOnLine(Mark m, int line);
+  int numberOfMarksOnColumn(Mark m, int column);
+  int numberOfMarksOnDiagonal(Mark m, boolean ascend);
+
+  Map<Point,Mark> marksOnLine(int line);
+  Map<Point,Mark> marksOnColumn(int column);
+  Map<Point,Mark> marksOnDiagonal(boolean ascend);
+
+  List<Point> listOfRemainingPositionsAtLine(int line);
+  List<Point> listOfRemainingPositionsAtColumn(int column);
+  List<Point> listOfRemainingPositionsAtDiagonal(boolean ascend);
 }

@@ -15,12 +15,13 @@ public class ImmutableBoard extends Board implements IBoard {
   }
 
   public ImmutableBoard(IBoard model) {
-    this.board = new Mark[3][3];
+    super();
+    this.area = new Mark[3][3];
     this.gameOver = model.isGameOver();
     this.gameStarted = model.isGameStarted();
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        board[i][j] = model.markAt(i, j);
+        area[i][j] = model.markAt(i, j);
       }
     }
   }

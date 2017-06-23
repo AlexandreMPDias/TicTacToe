@@ -1,7 +1,9 @@
 package model;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,20 +16,21 @@ public class Board implements IBoard {
   /**
    * Variable to hold the Marks.
    */
-  protected Mark[][] board;
+  protected Mark[][] area;
   boolean gameOver;
   boolean gameStarted;
+  final int areaSize;
   /**
-   * Number of Marks in the board.
+   * Number of Marks in the area.
    */
   private int nMarks;
 
   public Board() {
     gameStarted = false;
     nMarks = 0;
-    board = new Mark[3][3];
+    area = new Mark[3][3];
     gameOver = false;
-
+    areaSize = 3;
   }
 
   @Override
@@ -45,15 +48,15 @@ public class Board implements IBoard {
     }
     if (pointOutsideOfBoard(position)) {
       throw new IllegalArgumentException(
-          "Position outside the range of the board. Position = [" + position.x + " , "
+          "Position outside the range of the area. Position = [" + position.x + " , "
               + position.y + "].");
     }
-    if (board[position.x][position.y] != null) {
+    if (area[position.x][position.y] != null) {
       throw new IllegalArgumentException(
-          "Can't add a Mark on top of another. Mark here: [" + board[position.x][position.y]
+          "Can't add a Mark on top of another. Mark here: [" + area[position.x][position.y]
               .toString() + "]");
     }
-    board[position.x][position.y] = mark;
+    area[position.x][position.y] = mark;
     nMarks++;
     gameOver = isThereAWinner() || (nMarks == 9);
   }
@@ -66,17 +69,17 @@ public class Board implements IBoard {
   @Override
   public void resetBoard() {
     nMarks = 0;
-    board = new Mark[3][3];
+    area = new Mark[3][3];
     gameOver = false;
   }
 
   @Override
   public Map<Point, Mark> marksOnTheBoard() {
     Map<Point, Mark> map = new HashMap<>();
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board.length; j++) {
-        if (board[i][j] != null) {
-          map.put(new Point(i, j), board[i][j]);
+    for (int i = 0; i < area.length; i++) {
+      for (int j = 0; j < area.length; j++) {
+        if (area[i][j] != null) {
+          map.put(new Point(i, j), area[i][j]);
         }
       }
     }
@@ -86,9 +89,9 @@ public class Board implements IBoard {
   @Override
   public Map<Point, Mark> getBoard() {
     Map<Point, Mark> map = new HashMap<>();
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board.length; j++) {
-        map.put(new Point(i, j), board[i][j]);
+    for (int i = 0; i < area.length; i++) {
+      for (int j = 0; j < area.length; j++) {
+        map.put(new Point(i, j), area[i][j]);
       }
     }
     return map;
@@ -98,10 +101,10 @@ public class Board implements IBoard {
   public Mark markAt(Point position) {
     if (pointOutsideOfBoard(position)) {
       throw new IllegalArgumentException(
-          "Position outside the range of the board. Position = [" + position.getX() + " , "
+          "Position outside the range of the area. Position = [" + position.getX() + " , "
               + position.getY() + "].");
     }
-    return board[position.x][position.y];
+    return area[position.x][position.y];
   }
 
   @Override
@@ -132,14 +135,14 @@ public class Board implements IBoard {
     } else {
       for (int i = 0; i < 3; i++) {
         if (checkColumn(i)) {
-          return board[i][0];
+          return area[i][0];
         }
         if (checkLine(i)) {
-          return board[0][i];
+          return area[0][i];
         }
       }
       if (checkDiagonals()) {
-        return board[1][1];
+        return area[1][1];
       }
     }
     throw new IllegalArgumentException("Unexpected Behaviour.");
@@ -174,10 +177,10 @@ public class Board implements IBoard {
   }
 
   /**
-   * Checks if the point is outside the range of the board.
+   * Checks if the point is outside the range of the area.
    *
    * @param point is the given point.
-   * @return true if the point is inside the board, false if not.
+   * @return true if the point is inside the area, false if not.
    */
   private boolean pointOutsideOfBoard(Point point) {
     if (point.getX() < 0 || point.getX() > 2) {
@@ -196,7 +199,7 @@ public class Board implements IBoard {
     if (pointOutsideOfBoard(position)) {
       return false;
     } else {
-      return (board[position.x][position.y] == null);
+      return (area[position.x][position.y] == null);
     }
   }
 
@@ -224,7 +227,7 @@ public class Board implements IBoard {
    * @return true if someone did, false if not
    */
   private boolean checkColumn(int n) {
-    return (board[0][n] == board[1][n] && board[1][n] == board[2][n] && board[0][n] != null);
+    return (area[0][n] == area[1][n] && area[1][n] == area[2][n] && area[0][n] != null);
   }
 
   /**
@@ -234,7 +237,7 @@ public class Board implements IBoard {
    * @return true if someone did, false if not
    */
   private boolean checkLine(int n) {
-    return (board[n][0] == board[n][1] && board[n][1] == board[n][2] && board[n][0] != null);
+    return (area[n][0] == area[n][1] && area[n][1] == area[n][2] && area[n][0] != null);
   }
 
   /**
@@ -243,9 +246,182 @@ public class Board implements IBoard {
    * @return true if someone did, false if not
    */
   private boolean checkDiagonals() {
-    if (board[1][1] == board[2][2] && board[2][2] == board[0][0] && board[0][0] != null) {
+    if (area[1][1] == area[2][2] && area[2][2] == area[0][0] && area[0][0] != null) {
       return true;
     }
-    return (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[2][0] != null);
+    return (area[0][2] == area[1][1] && area[1][1] == area[2][0] && area[2][0] != null);
   }
+
+  @Override
+  public  boolean isColumnEmpty(int column){
+    for(int i = 0; i < 3; i++){
+      if(!isEmptyAt(i,column)) return false;
+    }
+    return true;
+  }
+
+  @Override
+  public boolean isLineEmpty(int line){
+    for(int i = 0; i < 3; i++){
+      if(!isEmptyAt(line,i)) return false;
+    }
+    return true;
+  }
+
+  @Override
+  public boolean isDiagonalEmpty(boolean ascend){
+    for(int i = 0; i < 3; i++){
+      int k = i;
+      if(ascend) k = (areaSize - 1) - i;
+      if(!isEmptyAt(k,i)) return false;
+    }
+    return true;
+  }
+
+  @Override
+  public int numberOfMarksOnLine(Mark m, int line){
+    int count = 0;
+    for(int i = 0; i < 3; i++){
+      if(markAt(line,i) == m){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  @Override
+  public int numberOfMarksOnColumn(Mark m, int column){
+    int count = 0;
+    for(int i = 0; i < 3; i++){
+      if(markAt(i,column) == m){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  @Override
+  public int numberOfMarksOnDiagonal(Mark m, boolean ascend){
+    int count = 0;
+    for(int i = 0; i < 3; i++){
+      int k = i;
+      if(ascend) k = (areaSize - 1) - i;
+      if(markAt(k,i) == m){
+        count++;
+      }
+    }
+    /*
+    if(ascend){
+      if(area[2][0] == m) count++;
+      if(area[1][1] == m) count++;
+      if(area[0][2] == m) count++;
+    }
+    else {
+      if(area[0][0] == m) count++;
+      if(area[1][1] == m) count++;
+      if(area[2][2] == m) count++;
+    }*/
+    return count;
+  }
+
+  @Override
+  public Map<Point,Mark> marksOnLine(int line){
+    Map<Point,Mark> map = new HashMap<>();
+    for(int i = 0; i < 3; i++){
+      if(!isEmptyAt(line,i)){
+        map.put(new Point(line,i), markAt(line,i));
+      }
+    }
+    return map;
+  }
+
+  @Override
+  public Map<Point,Mark> marksOnColumn(int column){
+    Map<Point,Mark> map = new HashMap<>();
+    for(int i = 0; i < 3; i++){
+      if(!isEmptyAt(i,column)){
+        map.put(new Point(i,column), markAt(i,column));
+      }
+    }
+    return map;
+  }
+
+  @Override
+  public Map<Point,Mark> marksOnDiagonal(boolean ascend){
+    Map<Point,Mark> map = new HashMap<>();
+    for(int i = 0; i < areaSize ; i++){
+      int k = i;
+      if(ascend) k = (areaSize - 1) - i;
+      if(!isEmptyAt(k,i)){
+        map.put(new Point(k,i), markAt(k,i));
+      }
+    }
+    return map;
+  }
+
+  @Override
+  public List<Point> listOfRemainingPositionsAtLine(int line) {
+    List<Point> list = new ArrayList<>();
+    for(int i = 0; i < areaSize; i++){
+      if(isEmptyAt(line,i)){
+        list.add(new Point(line, i));
+      }
+    }
+    return list;
+  }
+
+  @Override
+  public List<Point> listOfRemainingPositionsAtColumn(int column) {
+    List<Point> list = new ArrayList<>();
+    for(int i = 0; i < areaSize; i++){
+      if(isEmptyAt(i,column)){
+        list.add(new Point(i,column));
+      }
+    }
+    return list;
+  }
+
+  @Override
+  public List<Point> listOfRemainingPositionsAtDiagonal(boolean ascend) {
+    List<Point> list = new ArrayList<>();
+    for(int i = 0; i < areaSize; i++){
+      int k = i;
+      if(ascend) k = (areaSize - 1) - i;
+      if(isEmptyAt(k,i)){
+        list.add(new Point(k,i));
+      }
+    }
+    return list;
+  }
+
+  @Override
+  public boolean isColumnFull(int column) {
+    for(int i = 0; i < areaSize; i++){
+      if(isEmptyAt(i,column)){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public boolean isLineFull(int line) {
+    for(int i = 0; i < areaSize; i++){
+      if(isEmptyAt(line,i)){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public boolean isDiagonalFull(boolean ascend) {
+    for(int i = 0; i < areaSize; i++){
+      int k = i;
+      if(ascend) k = 2 - i;
+      if(isEmptyAt(k,i)) return false;
+    }
+    return true;
+  }
+
 }

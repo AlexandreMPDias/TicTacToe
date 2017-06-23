@@ -10,7 +10,7 @@ abstract class ClickToPoint {
 
   /**
    * Returns a point withs values ranging from {0,0} to {2,2} which are the mouse's coordinates'
-   * equivalent to the coordinates inside the board.
+   * equivalent to the coordinates inside the area.
    *
    * @param click is mouse's position inside the Frame.
    * @param size is the FixedSize { Explained at {@link Control } }

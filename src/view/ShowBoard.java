@@ -15,7 +15,7 @@ import view.ImageLoader.ImageID;
  * ShowBoard class extends {@link JComponent}.
  *
  * Class used to create the Board to show the Game State to the user.
- * This class shows the board and all the marks currently on top of the board.
+ * This class shows the area and all the marks currently on top of the area.
  */
 class ShowBoard extends JComponent {
 
